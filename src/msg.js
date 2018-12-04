@@ -15,7 +15,11 @@ const handleMessage = (msg) => {
 
   // If command is valid, execute the correct handler
   if (msg.author.id !== msg.client.user.id && isCmd(cmd)) {
-    Commands[cmd.substr(1)].handler(...[msg].concat(args))
+    const firstParam = {
+      msg: msg,
+      cmd: cmd
+    }
+    Commands[cmd.substr(1)].handler(...[firstParam].concat(args))
   }
 }
 

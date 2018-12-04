@@ -1,11 +1,11 @@
 const Storage = require('node-persist')
 
-const { checkArgs } = require('../../utils')
+const { checkArgs, notifyError } = require('../../utils')
 
 const ALIAS_LIST = 'alias_list'
 
 // Set a new user alias
-const add = (msg, nickname, pagelink) => {
+const add = ({ msg, cmd }, nickname, pagelink) => {
 
   // Function usage
   const usage = [
@@ -30,11 +30,13 @@ const add = (msg, nickname, pagelink) => {
         pagelink: pagelink
       }
     }))
-    .then(console.log)
+
+    // Notify errors
+    .catch(notifyError(msg, cmd))
 }
 
 // List all aliased users
-const list = (msg) => {
+const list = ({ msg, cmd }) => {
   Storage.getItem(ALIAS_LIST)
     .then(data => data || {})
 
@@ -65,7 +67,9 @@ const list = (msg) => {
       // Return composed message
       msg.reply(`Here's the complete user list :\n\n${list}`)
     })
-    .then(console.log)
+
+    // Handle errors
+    .catch(notifyError(msg, cmd))
 }
 
 module.exports = {
