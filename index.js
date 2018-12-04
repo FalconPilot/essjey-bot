@@ -19,7 +19,7 @@ client.on('ready', () => {
 client.on('message', handleMessage)
 
 // Launch client when storage is initialized
-console.log('Stargint EssJey bot...')
+console.log('Starting EssJey bot...')
 Storage.init()
   .then(() => console.log('|> Storage ready !'))
   .then(() => client.login(process.env.DISCORD_BOT_TOKEN))

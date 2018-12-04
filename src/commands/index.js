@@ -5,8 +5,12 @@ const Alias = require('./alias')
 const Commands = {
 
   // Alias commands
-  whois: Alias.list,
-  iam: Alias.add
+  whois: {
+    handler: Alias.list
+  },
+  iam: {
+    handler: Alias.add
+  }
 }
 
 module.exports = Commands

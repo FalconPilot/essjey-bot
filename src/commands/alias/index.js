@@ -37,14 +37,34 @@ const add = (msg, nickname, pagelink) => {
 const list = (msg) => {
   Storage.getItem(ALIAS_LIST)
     .then(data => data || {})
+
+    // Fetch server data to get server nickname
     .then(data => Promise.all(Object
-        .entries(data)
-        .map(([id, properties]) => {
-          const user = msg.client.users.get(id)
-          return msg.channel.guild.fetchMember(user)
-          // return `**${serverNick.nickname}** : ${properties.nickname} / <${properties.pagelink}>`
-        })
+      .entries(data)
+      .map(([id, properties]) => {
+        const user = msg.client.users.get(id)
+        return msg.channel.guild.fetchMember(user)
+          .then(serverData => ({
+            serverData: serverData,
+            properties: properties
+          }))
+      })
     ))
+
+    // Use fetched data to reply
+    .then(data => {
+
+      // Compose message
+      const list = data
+        .map(({ serverData, properties }) => {
+          const nick = serverData.nickname || serverData.user.username
+          return `**${nick}** : ${properties.nickname} / <${properties.pagelink}>`
+        })
+        .join('\n')
+      
+      // Return composed message
+      msg.reply(`Here's the complete user list :\n\n${list}`)
+    })
     .then(console.log)
 }
 
