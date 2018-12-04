@@ -1,0 +1,29 @@
+{
+  "name": "essjey-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "This is EssJey, the Discord Bot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FalconPilot/essjey-bot.git"
+  },
+  "author": "falconpilot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FalconPilot/essjey-bot/issues"
+  },
+  "homepage": "https://github.com/FalconPilot/essjey-bot#readme",
+  "devDependencies": {
+    "eslint": "^5.9.0"
+  },
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "dotenv": "^6.1.0",
+    "node-persist": "^3.0.1"
+  }
+}
